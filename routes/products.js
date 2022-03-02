@@ -20,6 +20,10 @@ function products(app) {
       const data = await productsService.paging(page);
       return res.send(data);
     }
+    if (idCategory) {
+      let data = await productsService.filtering(idCategory);
+      return res.send(data);
+    }
   });
 }
 

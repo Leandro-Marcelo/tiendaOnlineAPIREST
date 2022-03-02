@@ -1,4 +1,4 @@
-const { likeName, getAll, limitando } = require("../config/db");
+const { likeName, getAll, limitando, filterCategory } = require("../config/db");
 
 class Products {
   async search(payload) {
@@ -15,6 +15,10 @@ class Products {
     let startingLimit = (page - 1) * resultsPerPage;
     let results = await limitando("products", startingLimit, resultsPerPage);
     return { success: true, page, pages, total, results };
+  }
+  async filtering(idCategory) {
+    let results = await filterCategory("products", idCategory);
+    return { results };
   }
 }
 
