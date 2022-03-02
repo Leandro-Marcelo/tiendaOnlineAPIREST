@@ -16,6 +16,10 @@ function products(app) {
       let data = await productsService.search(search);
       return res.send(data);
     }
+    if (page) {
+      const data = await productsService.paging(page);
+      return res.send(data);
+    }
   });
 }
 
