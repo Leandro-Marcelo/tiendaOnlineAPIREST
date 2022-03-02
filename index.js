@@ -1,12 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const products = require("./routes/products");
 const config = require("./config");
 
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+products(app);
 
 const PORT = process.env.PORT || config.port;
 
