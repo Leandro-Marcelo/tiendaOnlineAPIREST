@@ -24,6 +24,10 @@ function products(app) {
       let data = await productsService.filtering(idCategory);
       return res.send(data);
     }
+    if (sort_by) {
+      let data = await productsService.sorting(sort_by);
+      return res.send(data);
+    }
   });
 }
 

@@ -1,4 +1,10 @@
-const { likeName, getAll, limitando, filterCategory } = require("../config/db");
+const {
+  getAll,
+  likeName,
+  limitando,
+  filterCategory,
+  sortingName,
+} = require("../config/db");
 
 class Products {
   async search(payload) {
@@ -18,6 +24,10 @@ class Products {
   }
   async filtering(idCategory) {
     let results = await filterCategory("products", idCategory);
+    return { results };
+  }
+  async sorting(sort_by) {
+    let results = await sortingName("products", sort_by);
     return { results };
   }
 }
