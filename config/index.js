@@ -1,13 +1,6 @@
 require("dotenv").config();
 
-const config = {
-  mode: process.env.MODE,
+module.exports = {
+  CLEARDB_DATABASE_URL: process.env.CLEARDB_DATABASE_URL,
   port: process.env.PORT,
-  db_port: process.env.DB_PORT,
-  db_password: process.env.DB_PASSWORD,
-  db_username: process.env.DB_USERNAME,
-  db_host: process.env.DD_HOST,
-  db_name: process.env.DB_NAME,
 };
-
-module.exports = config;

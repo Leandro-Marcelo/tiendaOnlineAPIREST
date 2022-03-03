@@ -1,36 +1,23 @@
-const mysql = require("mysql2");
-const config = require("./index");
+const { Prohairesis } = require("prohairesis");
+const env = require("./index");
 
-const connection = mysql.createConnection({
-  host: config.db_host,
-  port: config.db_port,
-  user: config.db_username,
-  password: config.db_password,
-  database: config.db_name,
-});
-
-function query(sql, data) {
-  return new Promise((resolve, reject) => {
-    connection.query(sql, data, function (error, result) {
-      error ? reject(error.sqlMessage) : resolve(result);
-    });
-  });
-}
+const dataBase = new Prohairesis(env.CLEARDB_DATABASE_URL);
 
 async function getAll() {
   try {
-    const products = await query(`SELECT * FROM products`);
-    return products;
+    const result = await dataBase.query(`SELECT * FROM products`);
+    return result;
   } catch (error) {
-    return { error, success: false };
+    return error;
   }
 }
 
 async function likeName(tableName, input) {
   try {
-    return await query(
+    const result = await dataBase.query(
       `SELECT * FROM ${tableName} WHERE name LIKE "%${input}%"`
     );
+    return result;
   } catch (error) {
     return error;
   }
@@ -38,18 +25,21 @@ async function likeName(tableName, input) {
 
 async function limitando(tableName, startingLimit, resultsPerPage) {
   try {
-    return await query(
+    const result = await dataBase.query(
       `SELECT * FROM ${tableName} LIMIT ${startingLimit}, ${resultsPerPage}`
     );
+    return result;
   } catch (error) {
     return error;
   }
 }
+
 async function filterCategory(tableName, idCategory) {
   try {
-    return await query(
+    const result = await dataBase.query(
       `SELECT * FROM ${tableName} WHERE idCategory=${idCategory}`
     );
+    return result;
   } catch (error) {
     return error;
   }
@@ -57,7 +47,10 @@ async function filterCategory(tableName, idCategory) {
 
 async function sortingName(tableName, sort_by) {
   try {
-    return await query(`SELECT * FROM ${tableName} order by name ${sort_by}`);
+    const result = await dataBase.query(
+      `SELECT * FROM ${tableName} order by name ${sort_by}`
+    );
+    return result;
   } catch (error) {
     return error;
   }
