@@ -1,0 +1,50 @@
+openapi: 3.0.1
+info:
+  title: API de Tienda Online de productos tegnologicos.
+  description: Esta API se encarga de manejar la información de la base de datos de la empresa Bsale.
+  version: 1.0.0
+servers:
+  - url: https://apitiendaonline.rj.r.appspot.com
+tags:
+  - name: mainPage
+    description: Simplemente pinta un mensaje de bienvenida
+paths:
+  /products/:
+    get:
+      tags:
+        - mainPage
+      summary: Este endpoint te muestra toda la información relacionada con la información de los productos que se encuentran en la Base de Datos.
+      responses:
+        200:
+          description: (OK) La información que solicitó se proporcionó correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExitoProducts"
+  /api/page/:
+    get:
+      tags:
+        - mainPage
+      summary: Este endpoint recibe un req.query que dependiendo del cual reciba hará cierta acción, si recibe un search buscara en la base de datos los elementos que contengan esas palabras y lo retornará, si recibe un page hará una limitación y devolverá el paginado de la página que ingresó, si recibe un sort_by este solo puede recibir un asc ó desc la cual devolverá todos los productos de manera ascendente ó descendente, por último, si recibe un idCategory este puede recibir 2 que hace referencia a Notebooks, el 3 a Celulares y 4 a Wearables.
+      responses:
+        200:
+          description: (OK) La información que solicitó se proporcionó correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExitoProducts"
+        404:
+          $ref: "#/components/responses/NotFound"
+
+components:
+  responses:
+    NotFound:
+      description: (NotFound) No se encontró la información
+
+  schemas:
+    ExitoProducts:
+      type: object
+      properties:
+        results:
+          type: object
+          description: Bandera que nos indica que los productos fueron proporcionados al frontend de manera exitosa.

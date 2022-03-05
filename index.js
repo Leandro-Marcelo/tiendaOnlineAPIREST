@@ -9,6 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.text());
+/* creo que este static frontend */
 app.use(express.static("frontend"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
