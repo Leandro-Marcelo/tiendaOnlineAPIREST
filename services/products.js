@@ -12,35 +12,37 @@ class Products {
     return products;
   }
 
-  async search(payload) {
-    let results = await likeName("products", payload);
-    return { results };
-  }
-
   async paging(pageNumber) {
-    try {
-      const resultsPerPage = 9;
-      const result = await getAll();
-      const total = result.length;
-      const pages = Math.ceil(total / resultsPerPage);
-      let page = Number(pageNumber);
-      if (isNaN(page)) return { success: false };
-      if (page > pages || page < 1) return { success: false };
-      let startingLimit = (page - 1) * resultsPerPage;
-      let results = await limitando("products", startingLimit, resultsPerPage);
-      return { success: true, page, pages, total, results };
-    } catch (error) {
-      return error;
-    }
+    const resultsPerPage = 9;
+    const result = await getAll();
+    console.log(result);
+    if (result.error) return { error: result.error };
+    const total = result.length;
+    const pages = Math.ceil(total / resultsPerPage);
+    let page = Number(pageNumber);
+    if (isNaN(page)) return { success: false };
+    if (page > pages || page < 1) return { success: false };
+    let startingLimit = (page - 1) * resultsPerPage;
+    let results = await limitando("product", startingLimit, resultsPerPage);
+    return { success: true, page, pages, total, results };
   }
 
-  async filtering(idCategory) {
-    let results = await filterCategory("products", idCategory);
+  async filtering(category) {
+    let results = await filterCategory("product", category);
     return { results };
   }
 
   async sorting(sort_by) {
-    let results = await sortingName("products", sort_by);
+    console.log(sort_by);
+    if (sort_by == "asc" || sort_by == "desc") {
+      let results = await sortingName("product", sort_by);
+      return { results };
+    }
+    return { error: "Esta página no existe" };
+  }
+
+  async search(payload) {
+    let results = await likeName("product", payload);
     return { results };
   }
 }
