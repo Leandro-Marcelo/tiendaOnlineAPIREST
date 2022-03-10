@@ -1,13 +1,6 @@
 const mysql = require("mysql2");
 const config = require("./index");
 
-/* const connection = mysql.createConnection({
-  host: config.db_host,
-  user: config.db_username,
-  password: config.db_password,
-  database: config.db_name,
-}); */
-
 const pool = mysql.createPool({
   host: config.db_host,
   user: config.db_username,
@@ -17,26 +10,6 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
 });
-
-/* connection.connect((err) => {
-  if (err) {
-    console.log(`Error DB: `, err);
-    return err;
-  }
-  console.log(`Conexion establecida!`);
-}); */
-
-/* function query(sql, data) {
-  return new Promise((resolve, reject) => {
-    connection.query(sql, data, function (error, result) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-} */
 
 function query(sql) {
   return new Promise((resolve, reject) => {

@@ -90,72 +90,7 @@ function products(app) {
     const categories = await productsService.readCategory();
     return res.status(200).json({ statusText: "Categorias", categories });
   });
-  /* 
-  router.get("/api/page", async (req, res) => {
-    // console.log(req.query);
-    const { search } = req.query;
-    const { page } = req.query;
-    const { category } = req.query;
-    const { sort_by } = req.query;
-    //Con esta validación corrigo si alguien va a http://localhost:4000/products/api/page/?todobien ya que solamente se permiten estas query en mi objeto de req.query, por lo tanto, como no esta a ningun if return que la página no fue encontrada
-    req.query = {
-      ["search"]: req.query.search,
-      ["sort_by"]: req.query.sort_by,
-      ["page"]: req.query.page,
-      ["category"]: req.query.category,
-    };
-    if (page) {
-      const products = await productsService.paging(page);
-      console.log(`log`, products);
-      if (products.error) {
-        const err = products.error;
-        return res.status(500).json({ statusText: err });
-      }
-      if (!products.success) {
-        return res.status(404).json({ statusText: "Esta página no existe" });
-      }
-      return res.status(200).json(products);
-    }
-    if (category) {
-      let products = await productsService.filtering(category);
-      if (products.error) {
-        const err = products.error;
-        return res.status(500).json({ statusText: err });
-      }
-      if (products.length < 1) {
-        return res.status(404).json({ statusText: "No existe esta categoría" });
-      }
-      return res.status(200).json(products);
-    }
-    if (sort_by) {
-      let products = await productsService.sorting(sort_by);
-      if (products.error) {
-        const err = products.error;
-        return res.status(500).json({ statusText: err });
-      }
-      return res.send(products);
-    }
-    if (search) {
-      let products = await productsService.search(search);
-      console.log(products);
-      if (products.error) {
-        const err = products.error;
-        return res.status(500).json({ statusText: err });
-      }
-      if (products.results.length < 1) {
-        return res
-          .status(404)
-          .json({ statusText: "Ningun producto matcheo con tu busqueda" });
-      }
-      return res.send(products);
-    }
-    if (search === "") {
-      return res
-        .status(404)
-        .json({ statusText: "Ningun producto matcheo con tu busqueda" });
-    }
-  });
- */
+
   /**
    * @swagger
    * /products/api/page/?page={page}:

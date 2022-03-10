@@ -10,14 +10,14 @@ const swaggerSpec = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Tienda Online API",
+      title: "Tienda Online APIREST",
       version: "1.0.0",
       /* los servidores no son requeridos pero se lo tenemos que pasar para decirle donde va a estar funcionando nuetra API, por default va a tomar el servidor actual */
     },
     servers: [
       {
         /* aquí iría la url donde va a estar nuestra documentación */
-        url: "http://localhost:4000",
+        url: "https://apitiendaonline.rj.r.appspot.com",
       },
     ],
   },
